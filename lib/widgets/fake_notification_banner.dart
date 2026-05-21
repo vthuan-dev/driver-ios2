@@ -10,11 +10,13 @@ import '../config/theme.dart';
 class FakeNotificationBanner extends StatefulWidget {
   final ApiService apiService;
   final Region region;
+  final String userStatus;
 
   const FakeNotificationBanner({
     super.key,
     required this.apiService,
     required this.region,
+    this.userStatus = 'approved',
   });
 
   @override
@@ -71,7 +73,7 @@ class _FakeNotificationBannerState extends State<FakeNotificationBanner> {
         final notifications = data.map((j) => FakeNotification.fromJson(j)).toList();
         notifications.shuffle();
         setState(() => _currentNotification = notifications.first);
-        _playNotificationSound();
+        if (widget.userStatus == 'approved') _playNotificationSound();
 
         // Auto-hide after 30 seconds
         _hideTimer?.cancel();

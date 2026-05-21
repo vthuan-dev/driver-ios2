@@ -245,11 +245,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     ),
                   const SizedBox(height: 8),
 
-                  // Fake notification banner (only for approved/logged-in drivers)
-                  if (isLoggedIn && user != null && user.status == 'approved')
+                  // Fake notification banner (for all logged-in drivers)
+                  if (isLoggedIn && user != null)
                     FakeNotificationBanner(
                       apiService: context.read<ApiService>(),
                       region: _requestRegion,
+                      userStatus: user.status,
                     ),
 
                   // Requests section
