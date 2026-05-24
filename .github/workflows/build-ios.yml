@@ -21,11 +21,15 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.44.0'
+          flutter-version: '3.29.3'
           channel: stable
 
       - name: Flutter pub get
         run: flutter pub get
+
+      - name: Install CocoaPods dependencies
+        run: pod install
+        working-directory: ios
 
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
@@ -42,4 +46,4 @@ jobs:
         with:
           name: DriverApp-iOS
           path: DriverApp.ipa
-          retention-days: 7
+          retention-days: 30

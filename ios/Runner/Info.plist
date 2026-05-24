@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>driver_app</string>
+	<string>Driver App</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -45,6 +45,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhoneCallUsageDescription</key>
+	<string>Driver App cần quyền truy cập để gọi điện cho tài xế</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>tel</string>
