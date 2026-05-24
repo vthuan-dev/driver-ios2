@@ -98,23 +98,31 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        centerTitle: false,
-        title: const Text(
-          'Driver App',
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-            fontSize: 22,
-            color: AppColors.primary,
-            letterSpacing: -0.5,
+        centerTitle: true,
+        title: RichText(
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: 'DRIVER ',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20,
+                  color: AppColors.textPrimary,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              TextSpan(
+                text: 'APP',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20,
+                  color: AppColors.primary,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
           ),
         ),
-        actions: [
-          // Subtle notification or menu icon could go here
-          IconButton(
-            icon: const Icon(Icons.notifications_none_rounded, color: AppColors.textSecondary),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: dataProvider.isLoading && dataProvider.drivers.isEmpty
           ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
@@ -138,6 +146,46 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           _regStatus = null;
                         });
                       },
+                    ),
+
+                  // Info bar
+                  if (!isLoggedIn)
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(12, 6, 12, 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppColors.borderLight),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.phone_rounded, size: 14, color: AppColors.primary),
+                          const SizedBox(width: 5),
+                          const Text(
+                            'Liên hệ 039 xxxx 932',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.primary,
+                            ),
+                          ),
+                          const Spacer(),
+                          const Icon(Icons.location_on_rounded, size: 14, color: AppColors.textMuted),
+                          const SizedBox(width: 4),
+                          Flexible(
+                            child: Text(
+                              'Tài xế ${dataProvider.totalCount} đang chờ...',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textSecondary,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
 
                   // User info card (Premium version)
@@ -271,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             ),
                             const SizedBox(width: 8),
                             const Text(
-                              'Yêu cầu chờ cuốc xe',
+                              'Cuốc xe phù hợp',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w900,

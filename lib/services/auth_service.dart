@@ -7,7 +7,9 @@ import 'api_service.dart';
 /// Auth service for managing user authentication state
 class AuthService extends ChangeNotifier {
   final ApiService _apiService;
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage(
+    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+  );
   
   User? _user;
   String? _token;
@@ -28,6 +30,20 @@ class AuthService extends ChangeNotifier {
   
   /// Load stored authentication data
   Future<void> _loadStoredAuth() async {
+    try {
+      await _doLoadStoredAuth().timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {},
+      );
+    } catch (e) {
+      debugPrint('Auth load timeout/error: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _doLoadStoredAuth() async {
     try {
       // Add timeout to prevent hanging on emulator
       final token = await _storage.read(key: 'token').timeout(
@@ -58,9 +74,6 @@ class AuthService extends ChangeNotifier {
       }
     } catch (e) {
       debugPrint('Error loading stored auth: $e');
-    } finally {
-      _isLoading = false;
-      notifyListeners();
     }
   }
   

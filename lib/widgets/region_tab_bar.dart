@@ -43,7 +43,7 @@ class RegionTabBar extends StatelessWidget {
                       : null,
                 ),
                 child: Text(
-                  region.label,
+                  region.labelWithEmoji,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,

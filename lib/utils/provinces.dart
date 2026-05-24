@@ -15,6 +15,17 @@ enum Region {
     }
   }
 
+  String get labelWithEmoji {
+    switch (this) {
+      case Region.north:
+        return '🏔️ Miền Bắc';
+      case Region.central:
+        return '🌊 Miền Trung';
+      case Region.south:
+        return '🌴 Miền Nam';
+    }
+  }
+
   static Region fromString(String value) {
     switch (value.toLowerCase()) {
       case 'central':
